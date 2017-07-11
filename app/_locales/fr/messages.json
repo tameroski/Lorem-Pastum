@@ -4,7 +4,7 @@
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "Fill textareas and input fields with Lorem Ipsum text straight from Chrome's context menu",
+    "message": "Replissez vos champs textes de Lorem Ipsum directement depuis le clic-droit !",
     "description": "The description of the application"
   },
   "menuName": {
@@ -12,15 +12,15 @@
     "description": "Label for the main menu item"
   },
   "menuItemShortPaste": {
-    "message": "Paste sentence",
+    "message": "Coller une phrase",
     "description": "Label for the shortest paste menu item"
   },
   "menuItemMediumPaste": {
-    "message": "Paste short paragraph",
+    "message": "Coller un paragraphe",
     "description": "Label for the medium paste menu item"
   },
   "menuItemLargePaste": {
-    "message": "Paste long paragraph",
+    "message": "Coller un long paragraphe",
     "description": "Label for the largest paste menu item"
   }
 }

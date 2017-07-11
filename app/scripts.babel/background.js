@@ -46,24 +46,24 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 // Set up the context menu items
 chrome.runtime.onInstalled.addListener((details) => {
     let parentItem = chrome.contextMenus.create({
-        'title': 'Lorem Pastum',
+        'title': chrome.i18n.getMessage('menuName'),
         'id': 'loremPastum',
         'contexts': ['editable']
 	});
     chrome.contextMenus.create({
-        'title': 'Paste sentence',
+        'title': chrome.i18n.getMessage('menuItemShortPaste'),
         'id': 'loremPastum-short',
         'contexts': ['editable'],
         'parentId': parentItem
 	});
     chrome.contextMenus.create({
-        'title': 'Paste short paragraph',
+        'title': chrome.i18n.getMessage('menuItemMediumPaste'),
         'id': 'loremPastum-medium',
         'contexts': ['editable'],
         'parentId': parentItem
 	});
     chrome.contextMenus.create({
-        'title': 'Paste long paragraph',
+        'title': chrome.i18n.getMessage('menuItemLargePaste'),
         'id': 'loremPastum-large',
         'contexts': ['editable'],
         'parentId': parentItem
