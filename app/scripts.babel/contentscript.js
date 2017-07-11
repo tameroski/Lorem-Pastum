@@ -3,11 +3,11 @@
 /**
  * Insert text using a custom event.
  */
-var insertText = (text) => {
+let insertText = text => {
 
     var el = document.activeElement;
 
-    var event = new CustomEvent(
+    let event = new CustomEvent(
         'pastingLorem', {
             detail: {
                 text: text
@@ -37,15 +37,15 @@ chrome.runtime.onMessage.addListener((request) => {
 /**
  * Helper function for dealing with textareas and pre-filled fields
  */
-var insertAtCaret = (element, text) => {
-    var supportedInputTypes = ['password', 'search', 'text'];
+let insertAtCaret = (element, text) => {
+    let supportedInputTypes = ['password', 'search', 'text'];
 
     if (element.tagName.toLowerCase() === 'textarea' || inArray(element.type.toLowerCase(), supportedInputTypes)){
-        var scrollPos = element.scrollTop;
+        let scrollPos = element.scrollTop;
         var caretPos = element.selectionStart;
 
-        var front = (element.value).substring(0, caretPos);
-        var back = (element.value).substring(element.selectionEnd, element.value.length);
+        let front = (element.value).substring(0, caretPos);
+        let back = (element.value).substring(element.selectionEnd, element.value.length);
         element.value = front + text + back;
         caretPos = caretPos + text.length;
         element.selectionStart = caretPos;
@@ -60,9 +60,8 @@ var insertAtCaret = (element, text) => {
 /**
  * Array helper
  */
-var inArray = (needle, haystack) => {
-    var length = haystack.length;
-    for(var i = 0; i < length; i++) {
+let inArray = (needle, haystack) => {
+    for(var i = 0; i < haystack.length; i++) {
         if(haystack[i] == needle) return true;
     }
     return false;

@@ -3,14 +3,13 @@
 /**
  * Retrieve the current content of the system clipboard.
  */
-function getContentFromClipboard() {
+let getContentFromClipboard = () => {
     var result = '';
     var temp = document.getElementById('temp');
     temp.value = '';
     temp.select();
     if (document.execCommand('paste')) {
         result = temp.value;
-        console.log('got value from temp field: ' + result);
     }
     temp.value = '';
     return result;
@@ -19,7 +18,7 @@ function getContentFromClipboard() {
 /**
  * Send the value that should be pasted to the content script.
  */
-function sendPasteToContentScript(toBePasted) {
+let sendPasteToContentScript = toBePasted => {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(
             tabs[0].id,
@@ -31,7 +30,7 @@ function sendPasteToContentScript(toBePasted) {
 /**
  * The function that will handle our context menu clicks.
  */
-function onClickHandler(info, tab) {
+let onClickHandler = (info, tab) => {
     if (info.menuItemId === 'loremPastum-short') {
         sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit..');
     }else if (info.menuItemId === 'loremPastum-medium') {
@@ -45,8 +44,8 @@ function onClickHandler(info, tab) {
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 // Set up the context menu items
-chrome.runtime.onInstalled.addListener(function(details) {
-    var parentItem = chrome.contextMenus.create({
+chrome.runtime.onInstalled.addListener((details) => {
+    let parentItem = chrome.contextMenus.create({
         'title': 'Lorem Pastum',
         'id': 'loremPastum',
         'contexts': ['editable']
