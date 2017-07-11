@@ -8,13 +8,11 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "default_locale": "en",
   "background": {
-    "scripts": [
-      "scripts/chromereload.js",
-      "scripts/background.js"
-    ]
+    "scripts": ["scripts/background.js"],
+    "persistent": false
   },
+  "default_locale": "en",
   "permissions": [
     "clipboardRead",
     "contextMenus"
@@ -31,9 +29,5 @@
       "run_at": "document_end",
       "all_frames": false
     }
-  ],
-  "background": {
-    "persistent": false,
-    "page": "background.html"
-  }
+  ]
 }

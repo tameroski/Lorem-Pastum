@@ -32,7 +32,7 @@ let sendPasteToContentScript = toBePasted => {
  */
 let onClickHandler = (info, tab) => {
     if (info.menuItemId === 'loremPastum-short') {
-        sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit..');
+        sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
     }else if (info.menuItemId === 'loremPastum-medium') {
     	sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. ');
     }else if (info.menuItemId === 'loremPastum-large') {
