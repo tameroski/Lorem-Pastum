@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Lorem Pastum",
-  "description": "Paste Lorem Ipsum text from Chrome's context menu",
-  "version": "0.0.1",
+  "description": "Paste Lorem Ipsum texts from Chrome's context menu",
+  "version": "0.0.2",
 
   "permissions": 
   [

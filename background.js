@@ -32,8 +32,12 @@ function sendPasteToContentScript(toBePasted) {
  * The function that will handle our context menu clicks.
  */
 function onClickHandler(info, tab) {
-    if (info.menuItemId === 'loremPastum') {
-        sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.');
+    if (info.menuItemId === 'loremPastum-short') {
+        sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit..');
+    }else if (info.menuItemId === 'loremPastum-medium') {
+    	sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. ');
+    }else if (info.menuItemId === 'loremPastum-large') {
+    	sendPasteToContentScript('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit. Ut velit mauris, egestas sed, gravida nec, ornare ut, mi. Aenean ut orci vel massa suscipit pulvinar. Nulla sollicitudin. Fusce varius, ligula non tempus aliquam, nunc turpis ullamcorper nibh, in tempus sapien eros vitae ligula.');
     }
 }
 
@@ -42,10 +46,27 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 // Set up the context menu items
 chrome.runtime.onInstalled.addListener(function(details) {
-    chrome.contextMenus.create(
-        {
-            'title': 'Paste Lorem Ipsum',
-            'id': 'loremPastum',
-            'contexts': ['editable']
-        });
+    var parentItem = chrome.contextMenus.create({
+        'title': 'Lorem Pastum',
+        'id': 'loremPastum',
+        'contexts': ['editable']
+	});
+    chrome.contextMenus.create({
+        'title': 'Paste sentence',
+        'id': 'loremPastum-short',
+        'contexts': ['editable'],
+        'parentId': parentItem
+	});
+    chrome.contextMenus.create({
+        'title': 'Paste short paragraph',
+        'id': 'loremPastum-medium',
+        'contexts': ['editable'],
+        'parentId': parentItem
+	});
+    chrome.contextMenus.create({
+        'title': 'Paste long paragraph',
+        'id': 'loremPastum-large',
+        'contexts': ['editable'],
+        'parentId': parentItem
+	});
 });
