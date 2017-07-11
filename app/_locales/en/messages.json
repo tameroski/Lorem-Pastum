@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Lorem Pastum",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Fill textareas and input fields with Lorem Ipsum text straight from Chrome&#39;s context menu",
+    "description": "The description of the application"
+  }
+}

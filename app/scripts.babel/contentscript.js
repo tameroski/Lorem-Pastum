@@ -3,13 +3,12 @@
 /**
  * Insert text using a custom event.
  */
-function insertText(text) {
+var insertText = (text) => {
 
     var el = document.activeElement;
 
     var event = new CustomEvent(
-        "pastingLorem", 
-        {
+        'pastingLorem', {
             detail: {
                 text: text
             },
@@ -18,7 +17,7 @@ function insertText(text) {
         }
     );
 
-    el.addEventListener("pastingLorem", function(e){
+    el.addEventListener('pastingLorem', function(e){
         insertAtCaret(e.target, e.detail.text);
     });
 
@@ -29,7 +28,7 @@ function insertText(text) {
 /**
  * Adding the message listener.
  */
-chrome.runtime.onMessage.addListener(function(request) {
+chrome.runtime.onMessage.addListener((request) => {
     if (request.type === 'paste') {
         insertText(request.data);
     }
@@ -38,7 +37,7 @@ chrome.runtime.onMessage.addListener(function(request) {
 /**
  * Helper function for dealing with textareas and pre-filled fields
  */
-function insertAtCaret(element, text) {
+var insertAtCaret = (element, text) => {
     var supportedInputTypes = ['password', 'search', 'text'];
 
     if (element.tagName.toLowerCase() === 'textarea' || inArray(element.type.toLowerCase(), supportedInputTypes)){
@@ -61,7 +60,7 @@ function insertAtCaret(element, text) {
 /**
  * Array helper
  */
-function inArray(needle, haystack) {
+var inArray = (needle, haystack) => {
     var length = haystack.length;
     for(var i = 0; i < length; i++) {
         if(haystack[i] == needle) return true;
