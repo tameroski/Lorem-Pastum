@@ -1,21 +1,6 @@
 'use strict';
 
 /**
- * Retrieve the current content of the system clipboard.
- */
-let getContentFromClipboard = () => {
-    var result = '';
-    var temp = document.getElementById('temp');
-    temp.value = '';
-    temp.select();
-    if (document.execCommand('paste')) {
-        result = temp.value;
-    }
-    temp.value = '';
-    return result;
-}
-
-/**
  * Send the value that should be pasted to the content script.
  */
 let sendPasteToContentScript = toBePasted => {
