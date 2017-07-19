@@ -4,7 +4,7 @@
  * Send the value that should be pasted to the content script.
  */
 let sendPasteToContentScript = toBePasted => {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.sendMessage(
             tabs[0].id,
             {type: 'paste', data: toBePasted}

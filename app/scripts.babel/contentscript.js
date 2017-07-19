@@ -17,7 +17,7 @@ let insertText = text => {
         }
     );
 
-    el.addEventListener('pastingLorem', function(e){
+    el.addEventListener('pastingLorem', (e) => {
         insertAtCaret(e.target, e.detail.text);
     });
 
