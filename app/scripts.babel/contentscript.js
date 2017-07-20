@@ -1,6 +1,15 @@
 'use strict';
 
 /**
+ * Adding the message listener.
+ */
+chrome.runtime.onMessage.addListener((request) => {
+    if (request.type == 'paste') {
+        insertText(request.data);
+    }
+});
+
+/**
  * Insert text using a custom event.
  */
 let insertText = text => {
@@ -17,27 +26,18 @@ let insertText = text => {
         }
     );
 
-    el.addEventListener('pastingLorem', (e) => {
-        insertAtCaret(e.target, e.detail.text);
-    });
-
+    el.addEventListener('pastingLorem', insertTextHandler);
     el.focus();
     el.dispatchEvent(event);
+    removeEventListener('pastingLorem', insertTextHandler);
 }
-
-/**
- * Adding the message listener.
- */
-chrome.runtime.onMessage.addListener((request) => {
-    if (request.type == 'paste') {
-        insertText(request.data);
-    }
-});
 
 /**
  * Helper function for dealing with textareas and pre-filled fields
  */
-let insertAtCaret = (element, text) => {
+let insertTextHandler = (event) => {
+    let element = event.target;
+    let text = event.detail.text;
     let supportedInputTypes = ['password', 'search', 'text'];
 
     if ( element.tagName.toLowerCase() == 'input' && inArray(element.type.toLowerCase(), supportedInputTypes) || element.tagName.toLowerCase() == 'textarea' ){
@@ -54,14 +54,20 @@ let insertAtCaret = (element, text) => {
         element.scrollTop = scrollPos;
     }else if (element.tagName.toLowerCase() == 'iframe'){
         // Javascript editors
-        if (element.hasAttribute('class') && element.getAttribute('class') == 'cke_pasteframe'){
-            // CKEditor's pasteframe
-            let frameContent = element.contentDocument || element.contentWindow.document;
-            let els = frameContent.querySelectorAll('body');
-            if (els.length > 0){
-                console.log(els[0]);
-                var body = els[0];
+        let frameContent = element.contentDocument || element.contentWindow.document;
+        let els = frameContent.querySelectorAll('body');
+        if (els.length > 0){
+            var body = els[0];
+
+            // CKEditor
+            if (element.hasAttribute('class') && element.getAttribute('class') == 'cke_pasteframe'){
                 body.innerHTML = text;
+            }
+            // TinyMCE
+            else if (body.hasAttribute('id') && body.getAttribute('id') == 'tinymce'){
+                body.appendChild(frameContent.createTextNode(text));
+
+                // TODO : Use tinyMCE API
             }
         }
     }else{
