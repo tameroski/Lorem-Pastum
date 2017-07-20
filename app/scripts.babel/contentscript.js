@@ -29,7 +29,7 @@ let insertText = text => {
     el.addEventListener('pastingLorem', insertTextHandler);
     el.focus();
     el.dispatchEvent(event);
-    removeEventListener('pastingLorem', insertTextHandler);
+    el.removeEventListener('pastingLorem', insertTextHandler);
 }
 
 /**
