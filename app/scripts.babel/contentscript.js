@@ -29,7 +29,7 @@ let insertText = text => {
  * Adding the message listener.
  */
 chrome.runtime.onMessage.addListener((request) => {
-    if (request.type === 'paste') {
+    if (request.type == 'paste') {
         insertText(request.data);
     }
 });
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener((request) => {
 let insertAtCaret = (element, text) => {
     let supportedInputTypes = ['password', 'search', 'text'];
 
-    if (element.tagName.toLowerCase() === 'textarea' || inArray(element.type.toLowerCase(), supportedInputTypes)){
+    if ( element.tagName.toLowerCase() == 'input' && inArray(element.type.toLowerCase(), supportedInputTypes) || element.tagName.toLowerCase() == 'textarea' ){
         let scrollPos = element.scrollTop;
         var caretPos = element.selectionStart;
 
@@ -52,6 +52,18 @@ let insertAtCaret = (element, text) => {
         element.selectionEnd = caretPos;
         element.focus();
         element.scrollTop = scrollPos;
+    }else if (element.tagName.toLowerCase() == 'iframe'){
+        // Javascript editors
+        if (element.hasAttribute('class') && element.getAttribute('class') == 'cke_pasteframe'){
+            // CKEditor's pasteframe
+            let frameContent = element.contentDocument || element.contentWindow.document;
+            let els = frameContent.querySelectorAll('body');
+            if (els.length > 0){
+                console.log(els[0]);
+                var body = els[0];
+                body.innerHTML = text;
+            }
+        }
     }else{
         element.value = text;
     }
